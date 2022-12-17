@@ -1,0 +1,43 @@
+{% extends 'manager/base.html' %}
+
+{% block content %}
+    <div class="container bg-light mt-4 py-2 rounded-4 shadow text-center">
+        <h1>Генератор карт</h1>
+    </div>
+
+<div class="container bg-light rounded-4 shadow text-center mt-4 p-4">
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if messages %}
+
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="series">Введите серию:</label>
+        <input class="rounded-2 border-light" type="number" name="series" value="" id="series">
+        <br>
+        <br>
+
+        <label for="quantity">Введите количество:</label>
+        <input style="width: 50px;" class="rounded-2 border-light" type="number" name="quantity" value="" id="quantity">
+        <br>
+        <br>
+
+        Срок действия:
+        <select class="rounded" name="exp_date">
+            <option value="365">1 year</option>
+            <option value="180">6 months</option>
+            <option value="30">1 month</option>
+        </select>
+
+        <br>
+        <br>
+        <input class="btn text-white" style="background-color: #432874" type = 'submit' value = "Сгенерировать" >
+    </form>
+</div>
+{% endblock %}
