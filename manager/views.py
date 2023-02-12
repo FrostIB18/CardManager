@@ -30,7 +30,7 @@ def card_info(request, card_pk):
             card.save(update_fields=['status'])
         elif del_action:
             card.delete()
-            messages.success(request, 'Карта успешно удалена!')
+            messages.success(request, 'The card was successfully deleted!')
             return HttpResponseRedirect(reverse('display'))
 
     return render(request, 'manager/card.html', {'card':card})
@@ -68,15 +68,15 @@ def generator(request):
                     card.amount = random.random()*300000
 
                     if card.expiration_date < datetime.now():
-                        card.status = 'Просрочена'
+                        card.status = 'Outdated'
                     else:
-                        card.status = random.choice(['Активирована', 'Не активирована'])
+                        card.status = random.choice(['Activated', 'Not activated'])
                     card.save()
-                    messages.success(request, 'Карты успешно сгенерированы!')
+                    messages.success(request, 'Cards successfully generated!')
             else:
                 return render(request, 'manager/generator.html',
-                              {'error':'Серия и количество должно быть положительным. Количество не должно превышать 100'})
+                              {'error':'Series and number should be positive. Amount should not be over 100'})
         else:
-            return render(request, 'manager/generator.html', {'error': 'Введите данные'})
+            return render(request, 'manager/generator.html', {'error': 'Input data'})
 
     return render(request, 'manager/generator.html')
